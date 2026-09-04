@@ -48,6 +48,19 @@ function Admin() {
     setSaved(false);
   };
 
+  const editCity = (ci: number, fn: (c: City) => void) =>
+    update((d) => {
+      const c = d.cities[ci];
+      if (c) fn(c);
+    });
+
+  const editHl = (ci: number, hi: number, fn: (h: Highlight) => void) =>
+    editCity(ci, (c) => {
+      const h = c.highlights[hi];
+      if (h) fn(h);
+    });
+
+
   return (
     <div className="mx-auto max-w-4xl px-6 py-16">
       <p className="eyebrow text-accent">Curator's Desk</p>
