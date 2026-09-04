@@ -17,6 +17,36 @@ export type City = {
   highlights: Highlight[];
 };
 
+export type Theme = {
+  /** google font family used for headings */
+  display: string;
+  /** google font family used for running text */
+  serif: string;
+  /** oklch values */
+  bg: string;
+  ink: string;
+  card: string;
+  border: string;
+  accent: string;
+  deep: string;
+  ornament: string;
+  /** decorative pattern used by the gallery plates */
+  motif: "jaali" | "kolam" | "phulkari" | "alpana" | "temple" | "wave" | "warli" | "bandhani";
+};
+
+export type TimelineEntry = {
+  id: string;
+  era: string;
+  title: string;
+  text: string;
+};
+
+export type GalleryItem = {
+  id: string;
+  title: string;
+  caption: string;
+};
+
 export type State = {
   slug: string;
   name: string;
@@ -26,9 +56,15 @@ export type State = {
   shape: string;
   labelAt: [number, number];
   cities: City[];
+  theme: Theme;
+  timeline: TimelineEntry[];
+  gallery: GalleryItem[];
 };
 
-export const STATES: State[] = [
+type BaseState = Omit<State, "theme" | "timeline" | "gallery">;
+
+const BASE_STATES: BaseState[] = [
+
   {
     slug: "rajasthan",
     name: "Rajasthan",
