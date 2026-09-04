@@ -131,7 +131,7 @@ function Admin() {
               <input
                 className={input}
                 value={city.name}
-                onChange={(e) => update((d) => void (d.cities[ci].name = e.target.value))}
+                onChange={(e) => editCity(ci, (c) => void (c.name = e.target.value))}
               />
             </label>
             <label className="block">
@@ -139,7 +139,7 @@ function Admin() {
               <input
                 className={input}
                 value={city.tagline}
-                onChange={(e) => update((d) => void (d.cities[ci].tagline = e.target.value))}
+                onChange={(e) => editCity(ci, (c) => void (c.tagline = e.target.value))}
               />
             </label>
           </div>
@@ -148,7 +148,7 @@ function Admin() {
             <input
               className={input}
               value={city.language}
-              onChange={(e) => update((d) => void (d.cities[ci].language = e.target.value))}
+              onChange={(e) => editCity(ci, (c) => void (c.language = e.target.value))}
             />
           </label>
           <label className="block">
@@ -157,7 +157,7 @@ function Admin() {
               rows={3}
               className={input}
               value={city.outfit}
-              onChange={(e) => update((d) => void (d.cities[ci].outfit = e.target.value))}
+              onChange={(e) => editCity(ci, (c) => void (c.outfit = e.target.value))}
             />
           </label>
 
@@ -170,11 +170,7 @@ function Admin() {
                     className={input}
                     value={h.category}
                     onChange={(e) =>
-                      update(
-                        (d) =>
-                          void (d.cities[ci].highlights[hi].category = e.target
-                            .value as Category),
-                      )
+                      editHl(ci, hi, (x) => void (x.category = e.target.value as Category))
                     }
                   >
                     {CATEGORIES.map((c) => (
@@ -188,22 +184,16 @@ function Admin() {
                   <input
                     className={input}
                     value={h.title}
-                    onChange={(e) =>
-                      update((d) => void (d.cities[ci].highlights[hi].title = e.target.value))
-                    }
+                    onChange={(e) => editHl(ci, hi, (x) => void (x.title = e.target.value))}
                   />
                   <textarea
                     rows={3}
                     className={input}
                     value={h.blurb}
-                    onChange={(e) =>
-                      update((d) => void (d.cities[ci].highlights[hi].blurb = e.target.value))
-                    }
+                    onChange={(e) => editHl(ci, hi, (x) => void (x.blurb = e.target.value))}
                   />
                   <button
-                    onClick={() =>
-                      update((d) => void d.cities[ci].highlights.splice(hi, 1))
-                    }
+                    onClick={() => editCity(ci, (c) => void c.highlights.splice(hi, 1))}
                     className="eyebrow text-destructive"
                   >
                     Remove entry
@@ -213,13 +203,15 @@ function Admin() {
             ))}
             <button
               onClick={() =>
-                update((d) =>
-                  void d.cities[ci].highlights.push({
-                    id: `h-${Date.now()}`,
-                    category: "Monuments",
-                    title: "New highlight",
-                    blurb: "",
-                  }),
+                editCity(
+                  ci,
+                  (c) =>
+                    void c.highlights.push({
+                      id: `h-${Date.now()}`,
+                      category: "Monuments",
+                      title: "New highlight",
+                      blurb: "",
+                    }),
                 )
               }
               className="eyebrow border border-border px-5 py-2.5 text-muted-foreground hover:border-accent hover:text-accent"
@@ -232,3 +224,4 @@ function Admin() {
     </div>
   );
 }
+
