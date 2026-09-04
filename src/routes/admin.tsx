@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { CATEGORIES, type Category, type State } from "@/data/heritage";
+import { CATEGORIES, type Category, type City, type Highlight, type State } from "@/data/heritage";
 import { useContent } from "@/lib/content-store";
 
 export const Route = createFileRoute("/admin")({
