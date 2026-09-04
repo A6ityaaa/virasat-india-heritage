@@ -11,6 +11,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { ContentProvider } from "../lib/content-store";
+
 
 function NotFoundComponent() {
   return (
@@ -77,21 +79,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "VIRASAT — Culture & Heritage of India" },
+      {
+        name: "description",
+        content:
+          "An editorial atlas of India's living heritage: monuments, festivals, crafts, food, dress and language.",
+      },
+      { property: "og:title", content: "VIRASAT — Culture & Heritage of India" },
+      {
+        property: "og:description",
+        content: "An editorial atlas of India's living heritage, state by state.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Rozha+One&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Karla:wght@400;500;700&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
   shellComponent: RootShell,
@@ -114,13 +124,67 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function SiteHeader() {
+  return (
+    <header className="border-b border-border bg-background/90 backdrop-blur">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
+        <Link to="/" className="flex items-center gap-3">
+          <span
+            className="grid h-9 w-9 place-items-center rounded-full bg-maroon text-gold"
+            style={{ fontFamily: "var(--font-display)" }}
+            aria-hidden
+          >
+            वि
+          </span>
+          <span className="text-2xl tracking-[0.14em]" style={{ fontFamily: "var(--font-display)" }}>
+            VIRASAT
+          </span>
+        </Link>
+        <nav className="flex items-center gap-6">
+          <Link
+            to="/"
+            className="text-xs tracking-[0.24em] uppercase text-muted-foreground hover:text-accent"
+          >
+            Atlas
+          </Link>
+          <Link
+            to="/admin"
+            className="text-xs tracking-[0.24em] uppercase text-muted-foreground hover:text-accent"
+          >
+            Curator
+          </Link>
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+function SiteFooter() {
+  return (
+    <footer className="mt-24 border-t border-border py-10">
+      <div className="mx-auto max-w-6xl px-6 text-xs tracking-[0.22em] uppercase text-muted-foreground">
+        VIRASAT · An atlas of India's living inheritance
+      </div>
+    </footer>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <ContentProvider>
+        <div className="flex min-h-screen flex-col">
+          <SiteHeader />
+          <main className="flex-1">
+            {/* Required: nested routes render here. */}
+            <Outlet />
+          </main>
+          <SiteFooter />
+        </div>
+      </ContentProvider>
     </QueryClientProvider>
   );
 }
+
