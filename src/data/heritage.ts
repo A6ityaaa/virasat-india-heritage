@@ -17,6 +17,36 @@ export type City = {
   highlights: Highlight[];
 };
 
+export type Theme = {
+  /** google font family used for headings */
+  display: string;
+  /** google font family used for running text */
+  serif: string;
+  /** oklch values */
+  bg: string;
+  ink: string;
+  card: string;
+  border: string;
+  accent: string;
+  deep: string;
+  ornament: string;
+  /** decorative pattern used by the gallery plates */
+  motif: "jaali" | "kolam" | "phulkari" | "alpana" | "temple" | "wave" | "warli" | "bandhani";
+};
+
+export type TimelineEntry = {
+  id: string;
+  era: string;
+  title: string;
+  text: string;
+};
+
+export type GalleryItem = {
+  id: string;
+  title: string;
+  caption: string;
+};
+
 export type State = {
   slug: string;
   name: string;
@@ -26,9 +56,15 @@ export type State = {
   shape: string;
   labelAt: [number, number];
   cities: City[];
+  theme: Theme;
+  timeline: TimelineEntry[];
+  gallery: GalleryItem[];
 };
 
-export const STATES: State[] = [
+type BaseState = Omit<State, "theme" | "timeline" | "gallery">;
+
+const BASE_STATES: BaseState[] = [
+
   {
     slug: "rajasthan",
     name: "Rajasthan",
@@ -610,3 +646,837 @@ export const STATES: State[] = [
 
 export const INDIA_OUTLINE =
   "M150,120 L215,105 L250,135 L300,120 L360,140 L420,120 L470,150 L455,200 L500,215 L540,265 L520,300 L470,300 L440,340 L420,420 L380,520 L330,620 L300,690 L268,610 L235,520 L200,440 L170,380 L120,330 L95,290 L120,240 L110,180 Z";
+
+const NEW_STATES: BaseState[] = [
+  {
+    slug: "uttar-pradesh",
+    name: "Uttar Pradesh",
+    epithet: "The Ganga's Long Sentence",
+    intro:
+      "Empires kept rewriting this floodplain and never quite finished. Marble grief in Agra, dawn hymns in Banaras, a kebab in Lucknow soft enough to be an apology — all of it stacked along one river that refuses to be a border.",
+    shape: "M258,190 L330,196 L364,232 L340,268 L286,264 L252,232 Z",
+    labelAt: [306, 232],
+    cities: [
+      {
+        id: "varanasi",
+        name: "Varanasi",
+        tagline: "Older than the memory of being old",
+        language: "Bhojpuri and Banarasi Hindi, argued loudly on both banks",
+        outfit:
+          "Banarasi silk saris with real zari, woven on pit looms in Madanpura; men in kurta-dhoti with a gamchha thrown over one shoulder for the ghat steps.",
+        highlights: [
+          {
+            id: "ghats",
+            category: "Monuments",
+            title: "The Eighty-Four Ghats",
+            blurb:
+              "A stone staircase four kilometres long, where wrestlers, widows, barbers and physicists all use the same step at different hours of the day.",
+          },
+          {
+            id: "dev-deepawali",
+            category: "Festivals",
+            title: "Dev Deepawali",
+            blurb:
+              "A million oil lamps set on the ghats on the full moon of Kartik — the river doubles the count and nobody argues with the arithmetic.",
+          },
+          {
+            id: "kachori-sabzi",
+            category: "Food",
+            title: "Kachori Sabzi & Malaiyo",
+            blurb:
+              "Breakfast is fried and fierce; winter dessert is milk foam whipped in the open so the dew does half the work. Eaten before 8am or not at all.",
+          },
+          {
+            id: "banarasi-weave",
+            category: "Crafts",
+            title: "Banarasi Brocade",
+            blurb:
+              "Two weavers, one loom, six months, one sari. The design cards hanging above them are inherited like land.",
+          },
+        ],
+      },
+      {
+        id: "agra",
+        name: "Agra",
+        tagline: "A city that lives beside one perfect building",
+        language: "Braj-tinted Hindi, with Urdu politeness",
+        outfit:
+          "Chikan-work kurtas in summer; brides still favour deep red with gota, a Mughal habit the city never dropped.",
+        highlights: [
+          {
+            id: "taj",
+            category: "Monuments",
+            title: "Taj Mahal",
+            blurb:
+              "Go at first light: the marble runs pink, then white, then a tired gold by noon. The inlay flowers are semi-precious stone cut thinner than a fingernail.",
+          },
+          {
+            id: "fatehpur",
+            category: "Monuments",
+            title: "Fatehpur Sikri",
+            blurb:
+              "A capital abandoned in fourteen years because the water ran out — which is why it survives so intact, an unfinished thought in red sandstone.",
+          },
+          {
+            id: "petha",
+            category: "Food",
+            title: "Petha & Mughlai Grill",
+            blurb:
+              "Ash-gourd candy sold by the kilo at the station, and behind the bazaar, seekh kebabs cooked on a grill that has not been allowed to cool since Partition.",
+          },
+          {
+            id: "pietra",
+            category: "Crafts",
+            title: "Parchin Kari Inlay",
+            blurb:
+              "The Taj's stone-inlay families still work three streets away, fitting carnelian petals by ear as much as by eye.",
+          },
+        ],
+      },
+      {
+        id: "lucknow",
+        name: "Lucknow",
+        tagline: "Where courtesy is a competitive sport",
+        language: "Urdu and Awadhi, spoken with deliberate slowness",
+        outfit:
+          "Chikankari — white thread on white muslin, thirty-two stitches, each named. Worn with a Lucknawi cap and, in winter, a chikan angarkha.",
+        highlights: [
+          {
+            id: "bara-imambara",
+            category: "Monuments",
+            title: "Bara Imambara",
+            blurb:
+              "Built as famine relief: nobles broke walls at night so labourers had work by day. Its roof holds without a single beam, and the labyrinth above still confuses guides.",
+          },
+          {
+            id: "muharram",
+            category: "Festivals",
+            title: "Muharram Processions",
+            blurb:
+              "Silver taziyas, marsiya elegies sung in Awadhi metre, and Hindu families who have supplied the drums for six generations.",
+          },
+          {
+            id: "galouti",
+            category: "Food",
+            title: "Galouti Kebab & Awadhi Biryani",
+            blurb:
+              "Invented for a toothless Nawab, refined into a kebab that dissolves. The biryani beside it is deliberately gentle — flavour by steam, not by fire.",
+          },
+          {
+            id: "chikan",
+            category: "Crafts",
+            title: "Chikankari",
+            blurb:
+              "Women embroider in courtyards between household chores; the finest jaali work is done by touch, holding the cloth against the light of a doorway.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "maharashtra",
+    name: "Maharashtra",
+    epithet: "Forts, Fishermen and Film",
+    intro:
+      "Basalt hills carved into cave-temples and hill-forts, a coastline that eats coconut and fish in the same breath, and a city that manufactures the country's dreams on deadline.",
+    shape: "M176,366 L262,358 L300,392 L278,432 L206,436 L170,404 Z",
+    labelAt: [236, 400],
+    cities: [
+      {
+        id: "mumbai",
+        name: "Mumbai",
+        tagline: "Seven islands that refused to stay seven",
+        language: "Marathi, plus Bambaiya Hindi invented on the trains",
+        outfit:
+          "Nauvari sari and the Puneri pheta for festival days; Koli fisherwomen still wear the knee-length kasta that lets them work in surf.",
+        highlights: [
+          {
+            id: "elephanta",
+            category: "Monuments",
+            title: "Elephanta Caves",
+            blurb:
+              "A three-faced Shiva cut out of a hillside in the 6th century, calm enough to survive Portuguese target practice.",
+          },
+          {
+            id: "ganesh",
+            category: "Festivals",
+            title: "Ganeshotsav",
+            blurb:
+              "Eleven days when lanes become galleries of clay idols, and on the last morning the whole city walks its gods to the sea.",
+          },
+          {
+            id: "vada-pav",
+            category: "Food",
+            title: "Vada Pav & Koli Curry",
+            blurb:
+              "A potato fritter in bread that feeds a shift change of millions; on the coast, the same city eats bombil fry and a red curry sharpened with kokum.",
+          },
+          {
+            id: "warli-craft",
+            category: "Crafts",
+            title: "Warli Painting",
+            blurb:
+              "Rice paste on cow-dung walls, stick figures in an endless spiral dance — a 2,500-year-old grammar of circles and triangles, still painted at weddings north of the city.",
+          },
+        ],
+      },
+      {
+        id: "pune",
+        name: "Pune",
+        tagline: "The Peshwas' desk, still tidy",
+        language: "Puneri Marathi, famously precise",
+        outfit:
+          "Nine-yard sari worn with a nath nose-ring; men in kurta and pheta, tied flatter here than in Kolhapur.",
+        highlights: [
+          {
+            id: "shaniwar",
+            category: "Monuments",
+            title: "Shaniwar Wada",
+            blurb:
+              "A palace burnt to its plinth in 1828; what remains are the gates, studded with iron spikes at elephant-forehead height.",
+          },
+          {
+            id: "sinhagad",
+            category: "Monuments",
+            title: "Sinhagad Fort",
+            blurb:
+              "Climbed in monsoon by half the city, for cloud and for the pithla-bhakri sold at the top by families who live inside the ramparts.",
+          },
+          {
+            id: "misal",
+            category: "Food",
+            title: "Misal Pav",
+            blurb:
+              "Sprouted moth beans under a slick of red tarri, served with a jug so you can escalate the heat yourself.",
+          },
+          {
+            id: "paithani",
+            category: "Crafts",
+            title: "Paithani Weaving",
+            blurb:
+              "Silk with no reverse side — tapestry-woven peacocks look identical from both faces, which is why one sari can take a year.",
+          },
+        ],
+      },
+      {
+        id: "aurangabad",
+        name: "Chhatrapati Sambhajinagar",
+        tagline: "Two hillsides of painted and carved devotion",
+        language: "Marathi with a Deccani Urdu accent",
+        outfit:
+          "Himroo shawls and Mashru silk, the Deccan's answer to brocade, worn over plain cotton.",
+        highlights: [
+          {
+            id: "ajanta",
+            category: "Monuments",
+            title: "Ajanta Caves",
+            blurb:
+              "Buddhist murals from before the idea of perspective, painted in near-darkness. Guides still use a single mirror to bounce daylight onto the ceilings.",
+          },
+          {
+            id: "ellora",
+            category: "Monuments",
+            title: "Ellora's Kailasa",
+            blurb:
+              "A temple carved downward out of one rock, 200,000 tonnes removed with the plan held only in someone's head.",
+          },
+          {
+            id: "naan-qalia",
+            category: "Food",
+            title: "Naan Qalia",
+            blurb:
+              "Mutton and gram-flour gravy from the old garrison kitchens, cooked all night and sold out by breakfast.",
+          },
+          {
+            id: "himroo",
+            category: "Crafts",
+            title: "Himroo Brocade",
+            blurb:
+              "Persian patterns brought south with the Tughlaqs; two looms in the city still make it, one thread of silk to four of cotton.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "gujarat",
+    name: "Gujarat",
+    epithet: "Salt, Sail and Mirrorwork",
+    intro:
+      "A coastline that made merchants and a desert that made embroiderers. Gujarat exports thread, stone-carving and stubborn vegetarian invention — and dances for nine consecutive nights to prove it has energy left over.",
+    shape: "M118,286 L172,282 L196,318 L170,360 L128,352 L104,318 Z",
+    labelAt: [146, 320],
+    cities: [
+      {
+        id: "ahmedabad",
+        name: "Ahmedabad",
+        tagline: "Carved stone and Le Corbusier, same postcode",
+        language: "Gujarati, with Urdu in the old city lanes",
+        outfit:
+          "Patola silk for weddings, tie-dyed before weaving; men in kediyu jackets and kafni pyjamas for Navratri nights.",
+        highlights: [
+          {
+            id: "pols",
+            category: "Monuments",
+            title: "The Pols & Adalaj Stepwell",
+            blurb:
+              "Walled neighbourhoods with bird-feeders built into the architecture, and outside town a five-storey well where the temperature drops six degrees as you descend.",
+          },
+          {
+            id: "navratri",
+            category: "Festivals",
+            title: "Navratri Garba",
+            blurb:
+              "Nine nights of concentric circles around a clay lamp, clapping on a beat that speeds up until the drummers decide mercy.",
+          },
+          {
+            id: "thali",
+            category: "Food",
+            title: "The Gujarati Thali",
+            blurb:
+              "Sweet, salt and heat in the same mouthful: undhiyu buried and slow-cooked in winter, dhokla steamed at dawn, and a server who refuses to accept that you are full.",
+          },
+          {
+            id: "patola",
+            category: "Crafts",
+            title: "Patan Patola",
+            blurb:
+              "Double ikat: both warp and weft are dyed before weaving, so the pattern must be aligned thread by thread. Three families, four months, no margin for error.",
+          },
+        ],
+      },
+      {
+        id: "bhuj",
+        name: "Bhuj",
+        tagline: "Embroidery as a map of who you are",
+        language: "Kachchhi, a Sindhi cousin",
+        outfit:
+          "Rabari women in black wool with mirrors stitched in constellations; each community's stitch declares clan, marital status and village.",
+        highlights: [
+          {
+            id: "rann",
+            category: "Festivals",
+            title: "Rann Utsav",
+            blurb:
+              "Full-moon nights on white salt that stretches past focus, with folk singers whose songs are older than the border they sit beside.",
+          },
+          {
+            id: "aina-mahal",
+            category: "Monuments",
+            title: "Aina Mahal",
+            blurb:
+              "A mirrored pleasure-palace built by a Gujarati craftsman who trained in Europe and came home to out-baroque the baroque.",
+          },
+          {
+            id: "kutchi-food",
+            category: "Food",
+            title: "Bajra Rotla & Kutchi Dabeli",
+            blurb:
+              "Millet bread with white butter and jaggery for the desert; in town, a spiced potato bun crowned with pomegranate and roasted peanuts.",
+          },
+          {
+            id: "ajrakh",
+            category: "Crafts",
+            title: "Ajrakh & Rogan Art",
+            blurb:
+              "Sixteen resist-printing stages using indigo and madder, washed in river water; nearby, one family paints with a stylus of thickened castor oil.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "assam",
+    name: "Assam",
+    epithet: "The Brahmaputra's Green Ledger",
+    intro:
+      "A valley where the river changes its mind every monsoon, where silk is spun from wild cocoons, and where dance and drum are still taught in monasteries built on islands.",
+    shape: "M452,206 L516,198 L528,232 L494,252 L456,240 Z",
+    labelAt: [500, 222],
+    cities: [
+      {
+        id: "guwahati",
+        name: "Guwahati",
+        tagline: "A city built around a hill and a temple",
+        language: "Assamese, with Bodo and Bengali in the market",
+        outfit:
+          "Mekhela chador in muga silk — golden, unbleached, and said to outlive the wearer; men in a white dhoti with a woven gamosa.",
+        highlights: [
+          {
+            id: "kamakhya",
+            category: "Monuments",
+            title: "Kamakhya Temple",
+            blurb:
+              "A goddess shrine with no idol, only a spring in the rock. During Ambubachi the doors shut for three days while the earth is said to rest.",
+          },
+          {
+            id: "bihu",
+            category: "Festivals",
+            title: "Rongali Bihu",
+            blurb:
+              "Spring arrives and the dhol, pepa horn and gogona start at once; the dance is fast, low and unmistakably about courtship.",
+          },
+          {
+            id: "assam-food",
+            category: "Food",
+            title: "Khar, Tenga & Pitha",
+            blurb:
+              "Two opposite fish curries — one alkaline from banana-peel ash, one sour with tomato and elephant apple — and rice cakes toasted in bamboo.",
+          },
+          {
+            id: "muga",
+            category: "Crafts",
+            title: "Muga Silk",
+            blurb:
+              "Reeled from wild cocoons in Assam and nowhere else on earth; it gets glossier each time it is washed, so heirlooms improve.",
+          },
+        ],
+      },
+      {
+        id: "majuli",
+        name: "Majuli",
+        tagline: "The river island that keeps shrinking and singing",
+        language: "Assamese, in a Vaishnav monastic register",
+        outfit:
+          "Monks in plain white; performers in painted masks, dhoti and mirrored waistbands for the night dramas.",
+        highlights: [
+          {
+            id: "satras",
+            category: "Monuments",
+            title: "The Satras",
+            blurb:
+              "Monasteries founded in the 16th century where prayer is choreography — boys learn drum, verse and mask-making before algebra.",
+          },
+          {
+            id: "raas",
+            category: "Festivals",
+            title: "Raas Mahotsav",
+            blurb:
+              "November nights when whole villages stage Krishna's life in bhaona theatre, in Brajavali, a language invented for the stage.",
+          },
+          {
+            id: "apong",
+            category: "Food",
+            title: "Apong & Bamboo-Steamed Fish",
+            blurb:
+              "Mising rice beer served in a bamboo cup, and river fish steamed inside a hollow stem with local herbs and nothing else.",
+          },
+          {
+            id: "mask",
+            category: "Crafts",
+            title: "Mukha Mask-Making",
+            blurb:
+              "Bamboo frame, river clay, cow dung and cloth — masks large enough to wear as a whole body, hinged so the jaw can speak.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "karnataka",
+    name: "Karnataka",
+    epithet: "Boulders, Bronze and Coffee",
+    intro:
+      "Ruined imperial bazaars among granite boulders, Hoysala temples carved like ivory, a coast of ghee-roast dosas, and hill slopes that quietly supply the country's coffee.",
+    shape: "M248,446 L306,442 L320,494 L300,542 L262,536 L240,492 Z",
+    labelAt: [278, 494],
+    cities: [
+      {
+        id: "hampi",
+        name: "Hampi",
+        tagline: "An empire left out in the sun",
+        language: "Kannada, with Telugu across the river",
+        outfit:
+          "Ilkal saris with a contrasting red kasuti-embroidered border; men in a white panche and Mysore peta for ceremony.",
+        highlights: [
+          {
+            id: "vittala",
+            category: "Monuments",
+            title: "Vittala Temple",
+            blurb:
+              "A stone chariot with wheels that once turned, beside pillars that ring at different pitches when tapped — an orchestra quarried out of one hill.",
+          },
+          {
+            id: "hampi-utsav",
+            category: "Festivals",
+            title: "Hampi Utsav",
+            blurb:
+              "Dance and puppetry staged among the ruins in winter; the boulders hold the day's heat and the sound.",
+          },
+          {
+            id: "jolada",
+            category: "Food",
+            title: "Jolada Rotti & Ennegayi",
+            blurb:
+              "Sorghum flatbread with stuffed brinjal in peanut-sesame masala, eaten with a mound of raw onion and a chilli you were warned about.",
+          },
+          {
+            id: "kasuti",
+            category: "Crafts",
+            title: "Kasuti Embroidery",
+            blurb:
+              "Counted-thread work with no knots on either side, patterned on temple chariots and palanquins.",
+          },
+        ],
+      },
+      {
+        id: "mysuru",
+        name: "Mysuru",
+        tagline: "A royal city that still keeps the timetable",
+        language: "Kannada, spoken with courtly rounding",
+        outfit:
+          "Mysore silk with a broad zari border; the Mysore peta turban is gold-edged and worn at an angle that used to indicate rank.",
+        highlights: [
+          {
+            id: "palace",
+            category: "Monuments",
+            title: "Mysore Palace",
+            blurb:
+              "Indo-Saracenic excess with stained glass shipped from Glasgow; on Sunday nights ninety-seven thousand bulbs outline it like a drawing.",
+          },
+          {
+            id: "dasara",
+            category: "Festivals",
+            title: "Mysuru Dasara",
+            blurb:
+              "Ten days ending with a caparisoned elephant carrying a golden howdah through streets that have rehearsed this for four centuries.",
+          },
+          {
+            id: "mysore-pak",
+            category: "Food",
+            title: "Mysore Pak & Ghee Dosa",
+            blurb:
+              "Gram flour, sugar and unreasonable quantities of ghee, invented in the palace kitchen; breakfast is a dosa crisped in the same fat.",
+          },
+          {
+            id: "sandalwood",
+            category: "Crafts",
+            title: "Sandalwood Carving",
+            blurb:
+              "Craftsmen work by smell as much as sight, cutting lattice screens so thin the grain glows when held to a lamp.",
+          },
+        ],
+      },
+      {
+        id: "madikeri",
+        name: "Madikeri",
+        tagline: "Coffee, rain and a warrior's manners",
+        language: "Kodava Takk, a language of its own",
+        outfit:
+          "Kodava men in the black kupya robe with a red sash and ornamental peeche kathi dagger; women drape the sari pleats behind, pinned at the shoulder.",
+        highlights: [
+          {
+            id: "talakaveri",
+            category: "Monuments",
+            title: "Talakaveri",
+            blurb:
+              "The Kaveri's source — a tank on a hill where the river appears once a year, on schedule, to a crowd.",
+          },
+          {
+            id: "kailpodh",
+            category: "Festivals",
+            title: "Kailpodh",
+            blurb:
+              "A harvest-season day when families clean and garland their firearms, then compete at shooting coconuts off a pole.",
+          },
+          {
+            id: "pandi",
+            category: "Food",
+            title: "Pandi Curry & Kadumbuttu",
+            blurb:
+              "Pork blackened with kachampuli vinegar distilled from wild fruit, mopped up with steamed rice balls.",
+          },
+          {
+            id: "coffee",
+            category: "Crafts",
+            title: "Shade-Grown Coffee",
+            blurb:
+              "Arabica under native trees, hand-picked cherry by cherry and dried on estate courtyards — the craft is in the sorting, not the roasting.",
+          },
+        ],
+      },
+    ],
+  },
+];
+
+type Extra = { theme: Theme; timeline: TimelineEntry[]; gallery: GalleryItem[] };
+
+const EXTRAS: Record<string, Extra> = {
+  rajasthan: {
+    theme: {
+      display: "Rozha One",
+      serif: "Cormorant Garamond",
+      bg: "oklch(0.96 0.03 78)",
+      ink: "oklch(0.26 0.07 32)",
+      card: "oklch(0.98 0.018 80)",
+      border: "oklch(0.84 0.05 70)",
+      accent: "oklch(0.66 0.19 48)",
+      deep: "oklch(0.34 0.14 20)",
+      ornament: "oklch(0.78 0.12 85)",
+      motif: "jaali",
+    },
+    timeline: [
+      { id: "r1", era: "8th c.", title: "Rajput clans rise", text: "Gurjara-Pratihara power splinters into clans who will spend a thousand years building on hills." },
+      { id: "r2", era: "1156", title: "Jaisalmer founded", text: "A yellow-sandstone fort placed on a caravan route between Delhi and the Persian Gulf." },
+      { id: "r3", era: "1568", title: "Chittorgarh falls", text: "Mewar loses its fort and gains its defining story of defiance, retold in ballads still sung." },
+      { id: "r4", era: "1727", title: "Jaipur drawn on paper", text: "Sawai Jai Singh II lays out a nine-block grid city with astronomy at its centre." },
+      { id: "r5", era: "1949", title: "Twenty-two states, one Rajasthan", text: "Princely houses merge; palaces turn into hotels, and craft guilds survive by becoming exporters." },
+    ],
+    gallery: [
+      { id: "rg1", title: "Bandhani", caption: "Thousands of thread-tied dots, opened after the dye bath." },
+      { id: "rg2", title: "Sheesh Mahal", caption: "Mirror mosaic that multiplies a single flame." },
+      { id: "rg3", title: "Blue Pottery", caption: "Cobalt on quartz dough, fired low and translucent." },
+      { id: "rg4", title: "Jharokha", caption: "Carved balcony windows for watching without being watched." },
+    ],
+  },
+  kerala: {
+    theme: {
+      display: "Yatra One",
+      serif: "Cormorant Garamond",
+      bg: "oklch(0.96 0.028 132)",
+      ink: "oklch(0.24 0.05 150)",
+      card: "oklch(0.98 0.016 130)",
+      border: "oklch(0.83 0.05 140)",
+      accent: "oklch(0.52 0.13 150)",
+      deep: "oklch(0.28 0.08 155)",
+      ornament: "oklch(0.76 0.14 92)",
+      motif: "wave",
+    },
+    timeline: [
+      { id: "k1", era: "3rd c. BCE", title: "Pepper leaves the coast", text: "Muziris trades with Rome; amphorae and coins arrive in exchange for spice." },
+      { id: "k2", era: "52 CE", title: "A Christian tradition begins", text: "Syrian Christian communities take root on the Malabar coast, by tradition with St Thomas." },
+      { id: "k3", era: "1341", title: "The flood that made Kochi", text: "A monsoon reshapes the coastline and opens the harbour that will draw every empire." },
+      { id: "k4", era: "17th c.", title: "Kathakali codified", text: "Temple courtyards standardise the make-up, mudras and all-night structure of the form." },
+      { id: "k5", era: "1957", title: "Literacy as policy", text: "Land reform and schooling reshape the state; theatre and libraries reach every village." },
+    ],
+    gallery: [
+      { id: "kg1", title: "Kathakali Face", caption: "Rice paste and lamp black, applied over four hours." },
+      { id: "kg2", title: "Kettuvallam", caption: "Coir-tied rice barges, not a nail in them." },
+      { id: "kg3", title: "Theyyam", caption: "A dancer accepted as the deity for one night." },
+      { id: "kg4", title: "Kasavu", caption: "Cream cotton with a single band of gold." },
+    ],
+  },
+  punjab: {
+    theme: {
+      display: "Baloo Bhaijaan 2",
+      serif: "Cormorant Garamond",
+      bg: "oklch(0.97 0.03 96)",
+      ink: "oklch(0.26 0.06 60)",
+      card: "oklch(0.99 0.015 96)",
+      border: "oklch(0.85 0.05 90)",
+      accent: "oklch(0.62 0.19 28)",
+      deep: "oklch(0.36 0.1 250)",
+      ornament: "oklch(0.8 0.14 90)",
+      motif: "phulkari",
+    },
+    timeline: [
+      { id: "p1", era: "2600 BCE", title: "Harappan towns", text: "Brick cities with drains at Rakhigarhi and Ropar set the region's first grid." },
+      { id: "p2", era: "1499", title: "Guru Nanak begins", text: "A teaching of one creator and shared kitchens spreads along the trade roads." },
+      { id: "p3", era: "1604", title: "The Adi Granth", text: "Scripture compiled and installed at Amritsar; music becomes the medium of faith." },
+      { id: "p4", era: "1799", title: "Ranjit Singh's court", text: "A Lahore-centred kingdom patronises frescoes, arms and gold leaf on the Darbar Sahib." },
+      { id: "p5", era: "1947", title: "The line", text: "Partition splits the land, the language and the ballads; refugee villages rebuild both." },
+    ],
+    gallery: [
+      { id: "pg1", title: "Phulkari", caption: "Darn stitch worked from the reverse, counted blind." },
+      { id: "pg2", title: "Golden Temple", caption: "Marble, gold and a queue that never ends." },
+      { id: "pg3", title: "Bhangra Drum", caption: "The dhol's two faces: one bass, one crack." },
+      { id: "pg4", title: "Juttis", caption: "Leather slippers with zari that never wear out first." },
+    ],
+  },
+  "west-bengal": {
+    theme: {
+      display: "Baloo Da 2",
+      serif: "Cormorant Garamond",
+      bg: "oklch(0.96 0.02 62)",
+      ink: "oklch(0.24 0.05 40)",
+      card: "oklch(0.98 0.014 62)",
+      border: "oklch(0.84 0.04 56)",
+      accent: "oklch(0.58 0.17 32)",
+      deep: "oklch(0.32 0.1 24)",
+      ornament: "oklch(0.8 0.11 82)",
+      motif: "alpana",
+    },
+    timeline: [
+      { id: "w1", era: "8th c.", title: "Pala bronze", text: "Buddhist workshops in Bengal export bronze and manuscript painting across Asia." },
+      { id: "w2", era: "1690", title: "A trading post", text: "Three villages on the Hooghly are leased; a colonial capital grows over them." },
+      { id: "w3", era: "1820s", title: "The Renaissance", text: "Reform, printing presses and Bengali prose remake the language in one generation." },
+      { id: "w4", era: "1913", title: "Tagore's Nobel", text: "Songs and Santiniketan turn a regional literature into a world one." },
+      { id: "w5", era: "2021", title: "Durga Puja listed", text: "UNESCO recognises the city's pandal art as intangible heritage." },
+    ],
+    gallery: [
+      { id: "wg1", title: "Pandal Art", caption: "Bamboo cathedrals built for four days, then dismantled." },
+      { id: "wg2", title: "Alpana", caption: "Rice-paste floor drawing, done freehand at dawn." },
+      { id: "wg3", title: "Terracotta Temples", caption: "Bishnupur brick panels: epics in fired clay." },
+      { id: "wg4", title: "Baul Ektara", caption: "One string, one gourd, an entire philosophy." },
+    ],
+  },
+  "tamil-nadu": {
+    theme: {
+      display: "Anek Tamil",
+      serif: "Cormorant Garamond",
+      bg: "oklch(0.96 0.025 70)",
+      ink: "oklch(0.25 0.06 36)",
+      card: "oklch(0.98 0.014 70)",
+      border: "oklch(0.84 0.045 64)",
+      accent: "oklch(0.6 0.18 38)",
+      deep: "oklch(0.3 0.11 26)",
+      ornament: "oklch(0.79 0.13 88)",
+      motif: "temple",
+    },
+    timeline: [
+      { id: "t1", era: "300 BCE", title: "Sangam poems", text: "Anthologies of love and war set a literary standard Tamil still measures itself against." },
+      { id: "t2", era: "7th c.", title: "Pallava stone", text: "Mamallapuram's monoliths move Tamil temple building from wood to granite." },
+      { id: "t3", era: "1010", title: "Brihadisvara finished", text: "Rajaraja Chola raises a 66-metre vimana with no mortar and a shadow that never touches the ground at noon." },
+      { id: "t4", era: "18th c.", title: "Carnatic trinity", text: "Tyagaraja, Dikshitar and Sastri fix the concert repertoire still sung each December." },
+      { id: "t5", era: "1930s", title: "Bharatanatyam revived", text: "Temple dance is reclaimed and taken to the proscenium stage." },
+    ],
+    gallery: [
+      { id: "tg1", title: "Gopuram", caption: "Painted tiers of gods, repainted every twelve years." },
+      { id: "tg2", title: "Kolam", caption: "Rice flour dots joined at the doorstep before sunrise." },
+      { id: "tg3", title: "Chola Bronze", caption: "Lost-wax casting: the wax is destroyed to free the god." },
+      { id: "tg4", title: "Kanjeevaram", caption: "Body and border woven separately, then interlocked." },
+    ],
+  },
+  "uttar-pradesh": {
+    theme: {
+      display: "Tiro Devanagari Hindi",
+      serif: "Cormorant Garamond",
+      bg: "oklch(0.96 0.018 52)",
+      ink: "oklch(0.25 0.045 30)",
+      card: "oklch(0.99 0.01 52)",
+      border: "oklch(0.85 0.035 48)",
+      accent: "oklch(0.58 0.12 24)",
+      deep: "oklch(0.3 0.07 300)",
+      ornament: "oklch(0.82 0.09 82)",
+      motif: "jaali",
+    },
+    timeline: [
+      { id: "u1", era: "1200 BCE", title: "Painted Grey Ware", text: "Iron-age settlements along the Ganga-Yamuna plain seed the epics' geography." },
+      { id: "u2", era: "528 BCE", title: "Sarnath sermon", text: "The Buddha teaches in a deer park; a pillar and a stupa mark the spot." },
+      { id: "u3", era: "1571", title: "Fatehpur Sikri", text: "Akbar builds a capital of debate, then abandons it when the water fails." },
+      { id: "u4", era: "1653", title: "The Taj completed", text: "Twenty-two years of marble, inlay and river-bank engineering end in Agra." },
+      { id: "u5", era: "1775", title: "Awadh moves to Lucknow", text: "A court of poets, cooks and embroiderers turns etiquette into an art form." },
+    ],
+    gallery: [
+      { id: "ug1", title: "Chikankari", caption: "White on white, thirty-two named stitches." },
+      { id: "ug2", title: "Marble Inlay", caption: "Carnelian petals cut thinner than a fingernail." },
+      { id: "ug3", title: "Ganga Aarti", caption: "Brass lamps swung in unison at dusk." },
+      { id: "ug4", title: "Banarasi Zari", caption: "Real silver-gilt thread, six months to a sari." },
+    ],
+  },
+  maharashtra: {
+    theme: {
+      display: "Tiro Devanagari Marathi",
+      serif: "Cormorant Garamond",
+      bg: "oklch(0.95 0.02 250)",
+      ink: "oklch(0.24 0.05 265)",
+      card: "oklch(0.98 0.012 250)",
+      border: "oklch(0.83 0.04 250)",
+      accent: "oklch(0.56 0.15 20)",
+      deep: "oklch(0.28 0.08 265)",
+      ornament: "oklch(0.78 0.12 88)",
+      motif: "warli",
+    },
+    timeline: [
+      { id: "m1", era: "2nd c. BCE", title: "Rock-cut begins", text: "Buddhist monks cut prayer halls into basalt at Bhaja, Karla and Ajanta." },
+      { id: "m2", era: "757", title: "Kailasa carved", text: "Ellora's monolithic temple is excavated top-down out of a single cliff." },
+      { id: "m3", era: "1674", title: "Shivaji crowned", text: "A hill-fort strategy becomes a state; the Maratha navy takes to the Konkan." },
+      { id: "m4", era: "1893", title: "Public Ganeshotsav", text: "A household ritual is turned into a mass street festival with civic purpose." },
+      { id: "m5", era: "1913", title: "Cinema arrives", text: "Phalke's first feature is shot in Bombay; an industry follows and never leaves." },
+    ],
+    gallery: [
+      { id: "mg1", title: "Warli Wall", caption: "Rice paste circles, triangles and an endless dance." },
+      { id: "mg2", title: "Paithani Pallu", caption: "Tapestry peacocks with no wrong side." },
+      { id: "mg3", title: "Ajanta Ceiling", caption: "Pigment older than perspective, lit by mirror." },
+      { id: "mg4", title: "Koli Nets", caption: "Fishing floats drying on Versova sand." },
+    ],
+  },
+  gujarat: {
+    theme: {
+      display: "Mukta Vaani",
+      serif: "Cormorant Garamond",
+      bg: "oklch(0.97 0.022 340)",
+      ink: "oklch(0.25 0.06 340)",
+      card: "oklch(0.99 0.012 340)",
+      border: "oklch(0.85 0.04 340)",
+      accent: "oklch(0.55 0.19 350)",
+      deep: "oklch(0.3 0.11 300)",
+      ornament: "oklch(0.79 0.13 92)",
+      motif: "bandhani",
+    },
+    timeline: [
+      { id: "g1", era: "2500 BCE", title: "Dholavira & Lothal", text: "A Harappan water city and the world's earliest known dockyard sit on this coast." },
+      { id: "g2", era: "1026", title: "Rani ki Vav begun", text: "A queen builds an inverted temple seven storeys into the ground." },
+      { id: "g3", era: "15th c.", title: "Ahmedabad's guilds", text: "Weavers, dyers and stone-carvers organise into pols and mahajans." },
+      { id: "g4", era: "1930", title: "Salt at Dandi", text: "A 385-km walk ends at the sea and makes salt a national argument." },
+      { id: "g5", era: "2001", title: "After the earthquake", text: "Kutch rebuilds, and its embroidery and ajrakh workshops reorganise as collectives." },
+    ],
+    gallery: [
+      { id: "gg1", title: "Ajrakh", caption: "Sixteen resist stages in indigo and madder." },
+      { id: "gg2", title: "Rabari Mirrorwork", caption: "Mirrors stitched in clan constellations." },
+      { id: "gg3", title: "Patola", caption: "Double ikat aligned thread by thread." },
+      { id: "gg4", title: "Stepwell", caption: "Architecture that goes down instead of up." },
+    ],
+  },
+  assam: {
+    theme: {
+      display: "Baloo Bhaina 2",
+      serif: "Cormorant Garamond",
+      bg: "oklch(0.96 0.022 118)",
+      ink: "oklch(0.24 0.045 130)",
+      card: "oklch(0.98 0.014 118)",
+      border: "oklch(0.83 0.04 122)",
+      accent: "oklch(0.55 0.12 138)",
+      deep: "oklch(0.29 0.07 140)",
+      ornament: "oklch(0.8 0.11 96)",
+      motif: "wave",
+    },
+    timeline: [
+      { id: "a1", era: "4th c.", title: "Kamarupa", text: "A kingdom on the Brahmaputra mints coins and copper-plate grants." },
+      { id: "a2", era: "1228", title: "The Ahoms arrive", text: "A Tai dynasty crosses the Patkai hills and rules the valley for six centuries." },
+      { id: "a3", era: "1500s", title: "Srimanta Sankardeva", text: "Bhakti reform builds satras where drama, drum and weaving are taught together." },
+      { id: "a4", era: "1837", title: "Tea leaves the valley", text: "Assam's wild camellia is planted in rows; labour lines and a new cuisine follow." },
+      { id: "a5", era: "1985", title: "Kaziranga listed", text: "The rhino grassland becomes World Heritage; conservation joins the cultural calendar." },
+    ],
+    gallery: [
+      { id: "ag1", title: "Muga Silk", caption: "Golden thread that improves with washing." },
+      { id: "ag2", title: "Bihu Dhol", caption: "Struck with stick and palm at once." },
+      { id: "ag3", title: "Mukha Mask", caption: "Bamboo, clay and cloth, hinged to speak." },
+      { id: "ag4", title: "Gamosa", caption: "A white towel that functions as a greeting." },
+    ],
+  },
+  karnataka: {
+    theme: {
+      display: "Anek Kannada",
+      serif: "Cormorant Garamond",
+      bg: "oklch(0.96 0.022 88)",
+      ink: "oklch(0.25 0.05 60)",
+      card: "oklch(0.98 0.014 88)",
+      border: "oklch(0.84 0.04 80)",
+      accent: "oklch(0.58 0.15 62)",
+      deep: "oklch(0.3 0.09 44)",
+      ornament: "oklch(0.8 0.12 86)",
+      motif: "temple",
+    },
+    timeline: [
+      { id: "c1", era: "450", title: "Kadamba script", text: "Early Kannada inscriptions at Halmidi begin a fifteen-century written record." },
+      { id: "c2", era: "1120", title: "Hoysala carving", text: "Soapstone temples at Belur and Halebidu are worked like ivory." },
+      { id: "c3", era: "1336", title: "Vijayanagara founded", text: "A bazaar empire among boulders grows to be the era's largest city after Beijing." },
+      { id: "c4", era: "1799", title: "Mysore's Wodeyars return", text: "A court restores silk, sandalwood and Dasara as instruments of state." },
+      { id: "c5", era: "1854", title: "Coffee on the ghats", text: "Kodagu's shade plantations formalise; the region's cuisine and calendar reorganise around harvest." },
+    ],
+    gallery: [
+      { id: "cg1", title: "Stone Chariot", caption: "Wheels that once turned, carved from granite." },
+      { id: "cg2", title: "Sandalwood Lattice", caption: "Screens cut thin enough to glow." },
+      { id: "cg3", title: "Yakshagana", caption: "Night-long theatre in crown and greasepaint." },
+      { id: "cg4", title: "Mysore Silk", caption: "Zari borders woven for a palace timetable." },
+    ],
+  },
+};
+
+const FALLBACK_EXTRA: Extra = EXTRAS["rajasthan"]!;
+
+export const STATES: State[] = [...BASE_STATES, ...NEW_STATES].map((s) => {
+  const extra = EXTRAS[s.slug] ?? FALLBACK_EXTRA;
+  return { ...s, ...structuredClone(extra) };
+});
