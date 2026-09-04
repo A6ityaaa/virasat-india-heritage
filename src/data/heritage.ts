@@ -35,7 +35,7 @@ export const STATES: State[] = [
     epithet: "Land of Kings",
     intro:
       "Rajasthan wears its history out loud — in sandstone the colour of afternoon light, in mirrorwork that catches a lamp from across a courtyard, in ballads still sung by families who have sung them for six centuries. Desert here is not emptiness; it is a stage.",
-    shape: "M112,186 L188,172 L236,182 L254,246 L226,292 L166,306 L124,272 L104,226 Z",
+    shape: "M124,190 L192,176 L238,186 L254,246 L226,292 L168,300 L134,268 L118,228 Z",
     labelAt: [176, 240],
     cities: [
       {
@@ -300,7 +300,7 @@ export const STATES: State[] = [
     intro:
       "Punjab is a place of loud generosity and quiet grief — a frontier ploughed by every invader who came overland, and still the first to put a stranger's plate on the table. Its music has a heartbeat you can measure: the dhol.",
     shape: "M180,132 L228,120 L248,152 L232,182 L196,178 L172,158 Z",
-    labelAt: [188, 106],
+    labelAt: [212, 152],
     cities: [
       {
         id: "amritsar",
