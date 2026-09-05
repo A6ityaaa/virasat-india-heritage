@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as StatesSlugRouteImport } from './routes/states.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuizRoute = QuizRouteImport.update({
+  id: '/quiz',
+  path: '/quiz',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StatesSlugRoute = StatesSlugRouteImport.update({
   id: '/states/$slug',
   path: '/states/$slug',
@@ -32,30 +38,34 @@ const StatesSlugRoute = StatesSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/quiz': typeof QuizRoute
   '/states/$slug': typeof StatesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/quiz': typeof QuizRoute
   '/states/$slug': typeof StatesSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/quiz': typeof QuizRoute
   '/states/$slug': typeof StatesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/states/$slug'
+  fullPaths: '/' | '/admin' | '/quiz' | '/states/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/states/$slug'
-  id: '__root__' | '/' | '/admin' | '/states/$slug'
+  to: '/' | '/admin' | '/quiz' | '/states/$slug'
+  id: '__root__' | '/' | '/admin' | '/quiz' | '/states/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
+  QuizRoute: typeof QuizRoute
   StatesSlugRoute: typeof StatesSlugRoute
 }
 
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quiz': {
+      id: '/quiz'
+      path: '/quiz'
+      fullPath: '/quiz'
+      preLoaderRoute: typeof QuizRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/states/$slug': {
       id: '/states/$slug'
       path: '/states/$slug'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
+  QuizRoute: QuizRoute,
   StatesSlugRoute: StatesSlugRoute,
 }
 export const routeTree = rootRouteImport
