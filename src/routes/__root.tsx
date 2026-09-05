@@ -148,6 +148,12 @@ function SiteHeader() {
             Atlas
           </Link>
           <Link
+            to="/quiz"
+            className="text-xs tracking-[0.24em] uppercase text-muted-foreground hover:text-accent"
+          >
+            Quiz
+          </Link>
+          <Link
             to="/admin"
             className="text-xs tracking-[0.24em] uppercase text-muted-foreground hover:text-accent"
           >
